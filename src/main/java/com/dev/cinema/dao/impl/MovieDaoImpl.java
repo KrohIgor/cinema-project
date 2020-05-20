@@ -22,7 +22,7 @@ public class MovieDaoImpl implements MovieDao {
             Long movieId = (Long) session.save(movie);
             transaction.commit();
             movie.setId(movieId);
-            LOGGER.info("Movie successfully added.");
+            LOGGER.info(String.format("Movie - %s successfully added.", movie.getTitle()));
             return movie;
         } catch (Exception e) {
             if (transaction != null) {
