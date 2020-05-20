@@ -7,6 +7,7 @@
     <groupId>hibernate-cinema</groupId>
     <artifactId>cinema-project</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
         <jdk.version>11</jdk.version>
