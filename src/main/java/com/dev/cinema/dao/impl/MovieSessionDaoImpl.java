@@ -1,6 +1,7 @@
 package com.dev.cinema.dao.impl;
 
 import com.dev.cinema.dao.MovieSessionDao;
+import com.dev.cinema.exception.DataProcessingException;
 import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.MovieSession;
 import com.dev.cinema.util.HibernateUtil;
@@ -31,7 +32,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             criteriaQuery.where(predicateMovieId, predicateDate);
             return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception e) {
-            throw new RuntimeException("Error retrieving Movie Sessions", e);
+            throw new DataProcessingException("Error retrieving Movie Sessions", e);
         }
     }
 
@@ -50,7 +51,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new RuntimeException("Can't insert Movie Session entity", e);
+            throw new DataProcessingException("Can't insert Movie Session entity", e);
         }
     }
 }
