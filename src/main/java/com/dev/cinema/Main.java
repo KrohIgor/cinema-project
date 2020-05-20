@@ -31,11 +31,11 @@ public class Main {
         MovieSession movieSession = new MovieSession();
         movieSession.setCinemaHall(cinemaHall);
         movieSession.setMovie(movie);
-        movieSession.setShowTime(LocalDateTime.of(LocalDate.now(), LocalTime.of(19,30)));
+        movieSession.setShowTime(LocalDateTime.of(LocalDate.now(), LocalTime.of(19, 30)));
         MovieSessionService movieSessionService = (MovieSessionService)
                 INJECTOR.getInstance(MovieSessionService.class);
         movieSessionService.add(movieSession);
-        movieSessionService.findAvailableSessions(movie.getId(),LocalDate.now())
+        movieSessionService.findAvailableSessions(movie.getId(), LocalDate.now())
                 .forEach(System.out::println);
     }
 }
