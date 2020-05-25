@@ -63,5 +63,15 @@ public class Main {
         } catch (AuthenticationException e) {
             e.printStackTrace();
         }
+        try {
+            System.out.println(authenticationService.login("bob@gmail.com", "1"));
+        } catch (AuthenticationException e) {
+            e.printStackTrace();
+        }
+        try {
+            System.out.println(authenticationService.login("bob.alice@gmail.com", "1234"));
+        } catch (AuthenticationException e) {
+            e.printStackTrace();
+        }
     }
 }

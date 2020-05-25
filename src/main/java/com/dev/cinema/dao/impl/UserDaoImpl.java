@@ -6,6 +6,7 @@ import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.User;
 import com.dev.cinema.util.HibernateUtil;
 import java.util.Optional;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
@@ -50,7 +51,9 @@ public class UserDaoImpl implements UserDao {
             Root<User> root = criteriaQuery.from(User.class);
             Predicate predicate = criteriaBuilder.equal(root.get("email"), email);
             criteriaQuery.where(predicate);
-            return Optional.ofNullable(session.createQuery(criteriaQuery).getSingleResult());
+            return Optional.of(session.createQuery(criteriaQuery).getSingleResult());
+        } catch (NoResultException e) {
+            return Optional.empty();
         } catch (Exception e) {
             throw new DataProcessingException("Error retrieving user", e);
         }
