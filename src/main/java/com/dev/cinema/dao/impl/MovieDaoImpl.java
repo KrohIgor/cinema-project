@@ -22,9 +22,8 @@ public class MovieDaoImpl implements MovieDao {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            Long movieId = (Long) session.save(movie);
+            session.save(movie);
             transaction.commit();
-            movie.setId(movieId);
             LOGGER.info(String.format("Movie - %s successfully added.", movie.getTitle()));
             return movie;
         } catch (Exception e) {

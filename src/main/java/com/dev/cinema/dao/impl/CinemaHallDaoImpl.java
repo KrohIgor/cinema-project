@@ -24,7 +24,6 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
             transaction = session.beginTransaction();
             Long cinemaHallId = (Long) session.save(cinemaHall);
             transaction.commit();
-            cinemaHall.setId(cinemaHallId);
             LOGGER.info(String.format("Cinema Hall with id - %s successfully added.",
                     cinemaHallId));
             return cinemaHall;

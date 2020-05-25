@@ -45,7 +45,6 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             transaction = session.beginTransaction();
             Long movieSessionId = (Long) session.save(movieSession);
             transaction.commit();
-            movieSession.setId(movieSessionId);
             LOGGER.info(String.format("Movie Session with id - %s successfully added.",
                     movieSessionId));
             return movieSession;
