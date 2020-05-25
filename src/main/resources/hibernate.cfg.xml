@@ -6,7 +6,7 @@
 
     <session-factory>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/cinema?serverTimezone=UTC</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/cinema?serverTimezone=Europe/Kiev</property>
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <property name="connection.username">root</property>
         <property name="connection.password">****</property>
@@ -16,6 +16,7 @@
         <mapping class="com.dev.cinema.model.Movie"/>
         <mapping class="com.dev.cinema.model.CinemaHall"/>
         <mapping class="com.dev.cinema.model.MovieSession"/>
+        <mapping class="com.dev.cinema.model.User"/>
     </session-factory>
 
 </hibernate-configuration>
