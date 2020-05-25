@@ -12,8 +12,10 @@ import com.dev.cinema.service.MovieSessionService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import org.apache.log4j.Logger;
 
 public class Main {
+    private static final Logger LOGGER = Logger.getLogger(Main.class);
     private static final Injector INJECTOR = Injector.getInstance("com.dev.cinema");
 
     public static void main(String[] args) {
@@ -61,17 +63,17 @@ public class Main {
             System.out.println(authenticationService.login("bob@gmail.com", "1234"));
             System.out.println(authenticationService.login("alice@gmail.com", "4321"));
         } catch (AuthenticationException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
         try {
             System.out.println(authenticationService.login("bob@gmail.com", "1"));
         } catch (AuthenticationException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
         try {
             System.out.println(authenticationService.login("bob.alice@gmail.com", "1234"));
         } catch (AuthenticationException e) {
-            e.printStackTrace();
+            LOGGER.error(e);
         }
     }
 }
