@@ -20,9 +20,9 @@ public class TicketDaoImpl implements TicketDao {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            Long ticketId = (Long) session.save(ticket);
+            session.save(ticket);
             transaction.commit();
-            LOGGER.info(String.format("Ticket with id - %s successfully added.", ticketId));
+            LOGGER.info(String.format("Ticket with id - %s successfully added.", ticket.getId()));
             return ticket;
         } catch (Exception e) {
             if (transaction != null) {

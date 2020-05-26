@@ -29,7 +29,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             Root<MovieSession> root = criteriaQuery.from(MovieSession.class);
             Predicate predicateMovieId = criteriaBuilder.equal(root.get("movie"), movieId);
             Predicate predicateDate = criteriaBuilder.between(root.get("showTime"),
-                    date.atStartOfDay(),date.atTime(LocalTime.MAX));
+                    date.atStartOfDay(), date.atTime(LocalTime.MAX));
             criteriaQuery.where(predicateMovieId, predicateDate);
             return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception e) {
@@ -44,10 +44,10 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            Long movieSessionId = (Long) session.save(movieSession);
+            session.save(movieSession);
             transaction.commit();
             LOGGER.info(String.format("Movie Session with id - %s successfully added.",
-                    movieSessionId));
+                    movieSession.getId()));
             return movieSession;
         } catch (Exception e) {
             if (transaction != null) {
