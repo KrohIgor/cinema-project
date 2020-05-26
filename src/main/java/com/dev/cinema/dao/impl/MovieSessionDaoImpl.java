@@ -6,6 +6,7 @@ import com.dev.cinema.lib.Dao;
 import com.dev.cinema.model.MovieSession;
 import com.dev.cinema.util.HibernateUtil;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -28,7 +29,7 @@ public class MovieSessionDaoImpl implements MovieSessionDao {
             Root<MovieSession> root = criteriaQuery.from(MovieSession.class);
             Predicate predicateMovieId = criteriaBuilder.equal(root.get("movie"), movieId);
             Predicate predicateDate = criteriaBuilder.between(root.get("showTime"),
-                    date.atStartOfDay(), date.plusDays(1L).atStartOfDay());
+                    date.atStartOfDay(),date.atTime(LocalTime.MAX));
             criteriaQuery.where(predicateMovieId, predicateDate);
             return session.createQuery(criteriaQuery).getResultList();
         } catch (Exception e) {
