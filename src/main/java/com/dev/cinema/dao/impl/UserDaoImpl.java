@@ -49,7 +49,7 @@ public class UserDaoImpl implements UserDao {
             Root<User> root = criteriaQuery.from(User.class);
             Predicate predicate = criteriaBuilder.equal(root.get("email"), email);
             criteriaQuery.where(predicate);
-            return Optional.ofNullable(session.createQuery(criteriaQuery).uniqueResult());
+            return session.createQuery(criteriaQuery).uniqueResultOptional();
         } catch (Exception e) {
             throw new DataProcessingException("Error retrieving user", e);
         }

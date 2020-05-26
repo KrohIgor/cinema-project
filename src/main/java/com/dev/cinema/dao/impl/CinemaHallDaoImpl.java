@@ -22,10 +22,10 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            Long cinemaHallId = (Long) session.save(cinemaHall);
+            session.save(cinemaHall);
             transaction.commit();
             LOGGER.info(String.format("Cinema Hall with id - %s successfully added.",
-                    cinemaHallId));
+                    cinemaHall.getId()));
             return cinemaHall;
         } catch (Exception e) {
             if (transaction != null) {

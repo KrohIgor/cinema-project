@@ -5,13 +5,17 @@ import com.dev.cinema.lib.Injector;
 import com.dev.cinema.model.CinemaHall;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.model.MovieSession;
+import com.dev.cinema.model.ShoppingCart;
+import com.dev.cinema.model.User;
 import com.dev.cinema.security.AuthenticationService;
 import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.MovieSessionService;
+import com.dev.cinema.service.ShoppingCartService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.List;
 import org.apache.log4j.Logger;
 
 public class Main {
@@ -59,9 +63,11 @@ public class Main {
                 INJECTOR.getInstance(AuthenticationService.class);
         authenticationService.register("bob@gmail.com", "1234");
         authenticationService.register("alice@gmail.com", "4321");
+        User user = null;
         try {
             System.out.println(authenticationService.login("bob@gmail.com", "1234"));
             System.out.println(authenticationService.login("alice@gmail.com", "4321"));
+            user = authenticationService.login("bob@gmail.com", "1234");
         } catch (AuthenticationException e) {
             LOGGER.error(e);
         }
@@ -75,5 +81,14 @@ public class Main {
         } catch (AuthenticationException e) {
             LOGGER.error(e);
         }
+
+        ShoppingCartService shoppingCartService = (ShoppingCartService)
+                INJECTOR.getInstance(ShoppingCartService.class);
+        List<MovieSession> availableSessions =
+                movieSessionService.findAvailableSessions(movie.getId(), LocalDate.now());
+        MovieSession selectedMovieSession = availableSessions.get(0);
+        shoppingCartService.addSession(selectedMovieSession, user);
+        ShoppingCart userShoppingCart = shoppingCartService.getByUser(user);
+        System.out.println(userShoppingCart);
     }
 }
