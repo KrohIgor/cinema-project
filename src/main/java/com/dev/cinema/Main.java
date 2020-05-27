@@ -93,13 +93,19 @@ public class Main {
         shoppingCartService.addSession(selectedMovieSession, bob);
         shoppingCartService.addSession(selectedMovieSession, bob);
         shoppingCartService.addSession(selectedMovieSession, alice);
-        ShoppingCart userShoppingCart = shoppingCartService.getByUser(bob);
-        System.out.println(userShoppingCart);
+        ShoppingCart bobShoppingCart = shoppingCartService.getByUser(bob);
+        System.out.println(bobShoppingCart);
 
         OrderService orderService = (OrderService) INJECTOR.getInstance(OrderService.class);
-        orderService.completeOrder(userShoppingCart.getTickets(), bob);
+        orderService.completeOrder(bobShoppingCart.getTickets(), bob);
         orderService.getOrderHistory(bob).forEach(System.out::println);
         ShoppingCart afterCompleteOrderShoppingCart = shoppingCartService.getByUser(bob);
         System.out.println(afterCompleteOrderShoppingCart);
+
+        shoppingCartService.addSession(selectedMovieSession, bob);
+        shoppingCartService.addSession(selectedMovieSession, bob);
+        bobShoppingCart = shoppingCartService.getByUser(bob);
+        orderService.completeOrder(bobShoppingCart.getTickets(), bob);
+        orderService.getOrderHistory(bob).forEach(System.out::println);
     }
 }
