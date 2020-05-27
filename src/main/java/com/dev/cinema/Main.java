@@ -11,6 +11,7 @@ import com.dev.cinema.security.AuthenticationService;
 import com.dev.cinema.service.CinemaHallService;
 import com.dev.cinema.service.MovieService;
 import com.dev.cinema.service.MovieSessionService;
+import com.dev.cinema.service.OrderService;
 import com.dev.cinema.service.ShoppingCartService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -48,7 +49,7 @@ public class Main {
         MovieSession movieSession1 = new MovieSession();
         movieSession1.setCinemaHall(cinemaHall1);
         movieSession1.setMovie(movie1);
-        movieSession1.setShowTime(LocalDateTime.of(2020,5,25,20,20));
+        movieSession1.setShowTime(LocalDateTime.of(2020, 5, 25, 20, 20));
         movieSession.setShowTime(LocalDateTime.of(LocalDate.now(), LocalTime.of(19, 30)));
         MovieSessionService movieSessionService = (MovieSessionService)
                 INJECTOR.getInstance(MovieSessionService.class);
@@ -56,18 +57,20 @@ public class Main {
         movieSessionService.add(movieSession1);
         movieSessionService.findAvailableSessions(movie.getId(), LocalDate.now())
                 .forEach(System.out::println);
-        movieSessionService.findAvailableSessions(movie1.getId(), LocalDate.of(2020,5,25))
+        movieSessionService.findAvailableSessions(movie1.getId(), LocalDate.of(2020, 5, 25))
                 .forEach(System.out::println);
 
         AuthenticationService authenticationService = (AuthenticationService)
                 INJECTOR.getInstance(AuthenticationService.class);
         authenticationService.register("bob@gmail.com", "1234");
         authenticationService.register("alice@gmail.com", "4321");
-        User user = null;
+        User bob = null;
+        User alice = null;
         try {
-            System.out.println(authenticationService.login("bob@gmail.com", "1234"));
-            System.out.println(authenticationService.login("alice@gmail.com", "4321"));
-            user = authenticationService.login("bob@gmail.com", "1234");
+            bob = authenticationService.login("bob@gmail.com", "1234");
+            alice = authenticationService.login("alice@gmail.com", "4321");
+            System.out.println(bob);
+            System.out.println(alice);
         } catch (AuthenticationException e) {
             LOGGER.error(e);
         }
@@ -87,8 +90,16 @@ public class Main {
         List<MovieSession> availableSessions =
                 movieSessionService.findAvailableSessions(movie.getId(), LocalDate.now());
         MovieSession selectedMovieSession = availableSessions.get(0);
-        shoppingCartService.addSession(selectedMovieSession, user);
-        ShoppingCart userShoppingCart = shoppingCartService.getByUser(user);
+        shoppingCartService.addSession(selectedMovieSession, bob);
+        shoppingCartService.addSession(selectedMovieSession, bob);
+        shoppingCartService.addSession(selectedMovieSession, alice);
+        ShoppingCart userShoppingCart = shoppingCartService.getByUser(bob);
         System.out.println(userShoppingCart);
+
+        OrderService orderService = (OrderService) INJECTOR.getInstance(OrderService.class);
+        orderService.completeOrder(userShoppingCart.getTickets(), bob);
+        orderService.getOrderHistory(bob).forEach(System.out::println);
+        ShoppingCart afterCompleteOrderShoppingCart = shoppingCartService.getByUser(bob);
+        System.out.println(afterCompleteOrderShoppingCart);
     }
 }
