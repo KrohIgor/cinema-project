@@ -9,6 +9,7 @@ import com.dev.cinema.service.OrderService;
 import com.dev.cinema.service.ShoppingCartService;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +18,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
     private ShoppingCartService shoppingCartService;
 
+    @Autowired
     public OrderServiceImpl(OrderDao orderDao, ShoppingCartService shoppingCartService) {
         this.orderDao = orderDao;
         this.shoppingCartService = shoppingCartService;

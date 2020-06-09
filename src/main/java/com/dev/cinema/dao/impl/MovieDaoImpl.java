@@ -9,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -17,6 +18,7 @@ public class MovieDaoImpl implements MovieDao {
 
     private SessionFactory sessionFactory;
 
+    @Autowired
     public MovieDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
