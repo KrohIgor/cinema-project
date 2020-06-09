@@ -27,8 +27,12 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 })
 public class AppConfig {
 
+    private final Environment env;
+
     @Autowired
-    private Environment env;
+    public AppConfig(Environment env) {
+        this.env = env;
+    }
 
     @Bean
     public DataSource getDataSource() {
