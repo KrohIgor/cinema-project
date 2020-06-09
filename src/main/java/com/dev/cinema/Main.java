@@ -1,7 +1,7 @@
 package com.dev.cinema;
 
+import com.dev.cinema.config.AppConfig;
 import com.dev.cinema.exception.AuthenticationException;
-import com.dev.cinema.lib.Injector;
 import com.dev.cinema.model.CinemaHall;
 import com.dev.cinema.model.Movie;
 import com.dev.cinema.model.MovieSession;
@@ -18,27 +18,28 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import org.apache.log4j.Logger;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main {
     private static final Logger LOGGER = Logger.getLogger(Main.class);
-    private static final Injector INJECTOR = Injector.getInstance("com.dev.cinema");
 
     public static void main(String[] args) {
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(AppConfig.class);
         Movie movie = new Movie();
         movie.setTitle("Fast and Furious");
-        MovieService movieService = (MovieService) INJECTOR.getInstance(MovieService.class);
         Movie movie1 = new Movie();
         movie1.setTitle("Troy");
+        MovieService movieService = context.getBean(MovieService.class);
         movie1 = movieService.add(movie1);
         movie = movieService.add(movie);
         movieService.getAll().forEach(System.out::println);
 
-        CinemaHallService cinemaHallService = (CinemaHallService)
-                INJECTOR.getInstance(CinemaHallService.class);
         CinemaHall cinemaHall = new CinemaHall();
         cinemaHall.setCapacity(100);
         CinemaHall cinemaHall1 = new CinemaHall();
         cinemaHall1.setCapacity(150);
+        CinemaHallService cinemaHallService = context.getBean(CinemaHallService.class);
         cinemaHall1 = cinemaHallService.add(cinemaHall1);
         cinemaHall = cinemaHallService.add(cinemaHall);
         cinemaHallService.getAll().forEach(System.out::println);
@@ -51,8 +52,8 @@ public class Main {
         movieSession1.setMovie(movie1);
         movieSession1.setShowTime(LocalDateTime.of(2020, 5, 25, 20, 20));
         movieSession.setShowTime(LocalDateTime.of(LocalDate.now(), LocalTime.of(19, 30)));
-        MovieSessionService movieSessionService = (MovieSessionService)
-                INJECTOR.getInstance(MovieSessionService.class);
+
+        MovieSessionService movieSessionService = context.getBean(MovieSessionService.class);
         movieSessionService.add(movieSession);
         movieSessionService.add(movieSession1);
         movieSessionService.findAvailableSessions(movie.getId(), LocalDate.now())
@@ -60,8 +61,7 @@ public class Main {
         movieSessionService.findAvailableSessions(movie1.getId(), LocalDate.of(2020, 5, 25))
                 .forEach(System.out::println);
 
-        AuthenticationService authenticationService = (AuthenticationService)
-                INJECTOR.getInstance(AuthenticationService.class);
+        AuthenticationService authenticationService = context.getBean(AuthenticationService.class);
         authenticationService.register("bob@gmail.com", "1234");
         authenticationService.register("alice@gmail.com", "4321");
         User bob = null;
@@ -85,18 +85,17 @@ public class Main {
             LOGGER.error(e);
         }
 
-        ShoppingCartService shoppingCartService = (ShoppingCartService)
-                INJECTOR.getInstance(ShoppingCartService.class);
         List<MovieSession> availableSessions =
                 movieSessionService.findAvailableSessions(movie.getId(), LocalDate.now());
         MovieSession selectedMovieSession = availableSessions.get(0);
+        ShoppingCartService shoppingCartService = context.getBean(ShoppingCartService.class);
         shoppingCartService.addSession(selectedMovieSession, bob);
         shoppingCartService.addSession(selectedMovieSession, bob);
         shoppingCartService.addSession(selectedMovieSession, alice);
         ShoppingCart bobShoppingCart = shoppingCartService.getByUser(bob);
         System.out.println(bobShoppingCart);
 
-        OrderService orderService = (OrderService) INJECTOR.getInstance(OrderService.class);
+        OrderService orderService = context.getBean(OrderService.class);
         orderService.completeOrder(bobShoppingCart.getTickets(), bob);
         orderService.getOrderHistory(bob).forEach(System.out::println);
         ShoppingCart afterCompleteOrderShoppingCart = shoppingCartService.getByUser(bob);
