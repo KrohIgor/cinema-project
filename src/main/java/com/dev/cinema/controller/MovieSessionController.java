@@ -22,9 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping(value = "/moviesessions")
 public class MovieSessionController {
 
-    /*private static final DateTimeFormatter FORMATTER_DATE
-            = DateTimeFormatter.ofPattern("dd.MM.yyyy");*/
-
     private MovieSessionService movieSessionService;
     private MovieService movieService;
     private CinemaHallService cinemaHallService;
@@ -37,7 +34,6 @@ public class MovieSessionController {
         this.cinemaHallService = cinemaHallService;
     }
 
-    //@JsonFormat(shape = JsonFormat.Shape.STRING)
     @PostMapping
     public void addMovieSession(@RequestBody MovieSessionRequestDto movieSessionRequestDto) {
         movieSessionService.add(getMovieSessionFromMovieSessionRequestDto(movieSessionRequestDto));
