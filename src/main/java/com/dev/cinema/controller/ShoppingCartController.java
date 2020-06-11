@@ -32,7 +32,7 @@ public class ShoppingCartController {
         this.shoppingCartMapper = shoppingCartMapper;
     }
 
-    @PostMapping(value = "/addmoviesession")
+    @PostMapping(value = "/add-movie-session")
     public void addMovieSession(@RequestParam Long userId,
                                 @RequestBody ShoppingCartRequestDto shoppingCartRequestDto) {
         shoppingCartService.addSession(movieSessionService.get(shoppingCartRequestDto
