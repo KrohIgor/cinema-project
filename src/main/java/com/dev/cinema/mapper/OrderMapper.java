@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderMapper {
     public OrderResponseDto getOrderResponseDto(Order order) {
+        if (order == null) {
+            return null;
+        }
         OrderResponseDto orderResponseDto = new OrderResponseDto();
         orderResponseDto.setOrderId(order.getId());
         orderResponseDto.setOrderDate(order.getOrderDate());

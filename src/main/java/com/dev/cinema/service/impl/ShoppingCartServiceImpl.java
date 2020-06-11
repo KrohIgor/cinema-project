@@ -35,7 +35,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     public ShoppingCart getByUser(User user) {
-        return shoppingCartDao.getByUser(user);
+        return user != null ? shoppingCartDao.getByUser(user) : null;
     }
 
     @Override

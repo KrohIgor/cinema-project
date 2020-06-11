@@ -16,6 +16,9 @@ public class CinemaHallMapper {
     }
 
     public CinemaHallResponseDto getCinemaHallResponseDto(CinemaHall cinemaHall) {
+        if (cinemaHall == null) {
+            return null;
+        }
         CinemaHallResponseDto cinemaHallResponseDto = new CinemaHallResponseDto();
         cinemaHallResponseDto.setCinemaHallId(cinemaHall.getId());
         cinemaHallResponseDto.setCapacity(cinemaHall.getCapacity());

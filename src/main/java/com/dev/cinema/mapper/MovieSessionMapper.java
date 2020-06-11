@@ -29,6 +29,9 @@ public class MovieSessionMapper {
     }
 
     public MovieSessionResponseDto getMovieSessionResponseDto(MovieSession movieSession) {
+        if (movieSession == null) {
+            return null;
+        }
         MovieSessionResponseDto movieSessionResponseDto = new MovieSessionResponseDto();
         movieSessionResponseDto.setMovieId(movieSession.getMovie().getId());
         movieSessionResponseDto.setShowTime(movieSession.getShowTime());

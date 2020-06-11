@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class ShoppingCartMapper {
     public ShoppingCartResponseDto getShoppingCartResponseDto(ShoppingCart shoppingCart) {
+        if (shoppingCart == null) {
+            return null;
+        }
         ShoppingCartResponseDto shoppingCartResponseDto = new ShoppingCartResponseDto();
         shoppingCartResponseDto.setShoppingCartId(shoppingCart.getId());
         shoppingCartResponseDto.setTicketIds(shoppingCart.getTickets().stream()

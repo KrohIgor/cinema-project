@@ -15,6 +15,9 @@ public class MovieMapper {
     }
 
     public MovieResponseDto getMovieResponseDto(Movie movie) {
+        if (movie == null) {
+            return null;
+        }
         MovieResponseDto movieResponseDto = new MovieResponseDto();
         movieResponseDto.setMovieId(movie.getId());
         movieResponseDto.setTitle(movie.getTitle());
