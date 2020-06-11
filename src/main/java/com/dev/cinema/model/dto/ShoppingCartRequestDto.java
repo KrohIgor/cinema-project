@@ -1,7 +1,6 @@
 package com.dev.cinema.model.dto;
 
 public class ShoppingCartRequestDto {
-
     private Long movieSessionId;
     private Long userId;
 

@@ -1,6 +1,6 @@
 package com.dev.cinema.controller;
 
-import com.dev.cinema.model.User;
+import com.dev.cinema.mapper.UserMapper;
 import com.dev.cinema.model.dto.UserRequestDto;
 import com.dev.cinema.model.dto.UserResponseDto;
 import com.dev.cinema.security.AuthenticationService;
@@ -13,24 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping
 public class AuthenticationController {
-
     private AuthenticationService authenticationService;
+    private UserMapper userMapper;
 
     @Autowired
-    public AuthenticationController(AuthenticationService authenticationService) {
+    public AuthenticationController(AuthenticationService authenticationService,
+                                    UserMapper userMapper) {
         this.authenticationService = authenticationService;
+        this.userMapper = userMapper;
     }
 
     @PostMapping(value = "/register")
     public UserResponseDto register(@RequestBody UserRequestDto userRequestDto) {
-        return getUserResponseDto(authenticationService.register(userRequestDto.getEmail(),
-                userRequestDto.getPassword()));
-    }
-
-    private UserResponseDto getUserResponseDto(User user) {
-        UserResponseDto userResponseDto = new UserResponseDto();
-        userResponseDto.setUserId(user.getId());
-        userResponseDto.setEmail(user.getEmail());
-        return userResponseDto;
+        return userMapper.getUserResponseDto(authenticationService.register(
+                userRequestDto.getEmail(), userRequestDto.getPassword()));
     }
 }

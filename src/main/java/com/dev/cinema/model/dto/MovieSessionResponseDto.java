@@ -3,7 +3,6 @@ package com.dev.cinema.model.dto;
 import java.time.LocalDateTime;
 
 public class MovieSessionResponseDto {
-
     private Long movieSessionId;
     private LocalDateTime showTime;
     private Long movieId;

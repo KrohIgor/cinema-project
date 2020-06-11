@@ -1,7 +1,6 @@
 package com.dev.cinema.model.dto;
 
 public class CinemaHallRequestDto {
-
     private int capacity;
     private String description;
 

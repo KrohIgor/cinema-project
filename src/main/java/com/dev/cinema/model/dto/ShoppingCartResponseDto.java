@@ -3,7 +3,6 @@ package com.dev.cinema.model.dto;
 import java.util.List;
 
 public class ShoppingCartResponseDto {
-
     private Long shoppingCartId;
     private List<Long> ticketIds;
     private Long userId;

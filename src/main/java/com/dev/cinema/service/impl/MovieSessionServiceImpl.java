@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MovieSessionServiceImpl implements MovieSessionService {
-
     private MovieSessionDao movieSessionDao;
 
     @Autowired

@@ -1,7 +1,6 @@
 package com.dev.cinema.model.dto;
 
 public class CinemaHallResponseDto {
-
     private Long cinemaHallId;
     private int capacity;
     private String description;
