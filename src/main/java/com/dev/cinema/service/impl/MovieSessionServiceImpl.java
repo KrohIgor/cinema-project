@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MovieSessionServiceImpl implements MovieSessionService {
-
     private MovieSessionDao movieSessionDao;
 
     @Autowired
@@ -26,5 +25,10 @@ public class MovieSessionServiceImpl implements MovieSessionService {
     @Override
     public MovieSession add(MovieSession session) {
         return movieSessionDao.add(session);
+    }
+
+    @Override
+    public MovieSession get(Long movieSessionId) {
+        return movieSessionDao.get(movieSessionId);
     }
 }

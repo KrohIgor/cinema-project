@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class MovieServiceImpl implements MovieService {
-
     private MovieDao movieDao;
 
     @Autowired
@@ -20,6 +19,11 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public Movie add(Movie movie) {
         return movieDao.add(movie);
+    }
+
+    @Override
+    public Movie get(Long movieId) {
+        return movieDao.get(movieId);
     }
 
     @Override

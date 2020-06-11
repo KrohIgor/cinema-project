@@ -4,7 +4,10 @@ import com.dev.cinema.dao.CinemaHallDao;
 import com.dev.cinema.exception.DataProcessingException;
 import com.dev.cinema.model.CinemaHall;
 import java.util.List;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -44,6 +47,20 @@ public class CinemaHallDaoImpl implements CinemaHallDao {
             if (session != null) {
                 session.close();
             }
+        }
+    }
+
+    @Override
+    public CinemaHall get(Long cinemaHallId) {
+        try (Session session = sessionFactory.openSession()) {
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<CinemaHall> criteriaQuery = criteriaBuilder.createQuery(CinemaHall.class);
+            Root<CinemaHall> root = criteriaQuery.from(CinemaHall.class);
+            Predicate predicate = criteriaBuilder.equal(root.get("id"), cinemaHallId);
+            criteriaQuery.where(predicate);
+            return session.createQuery(criteriaQuery).getSingleResult();
+        } catch (Exception e) {
+            throw new DataProcessingException("Error retrieving Cinema Hall", e);
         }
     }
 
