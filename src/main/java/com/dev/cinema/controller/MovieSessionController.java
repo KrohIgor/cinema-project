@@ -4,7 +4,6 @@ import com.dev.cinema.mapper.MovieSessionMapper;
 import com.dev.cinema.model.dto.MovieSessionRequestDto;
 import com.dev.cinema.model.dto.MovieSessionResponseDto;
 import com.dev.cinema.service.MovieSessionService;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,7 +34,6 @@ public class MovieSessionController {
                 .getMovieSessionFromMovieSessionRequestDto(movieSessionRequestDto));
     }
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     @GetMapping(value = "/available")
     public List<MovieSessionResponseDto> getAllAvailable(@RequestParam Long movieId,
                                                          @RequestParam LocalDate date) {
