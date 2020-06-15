@@ -1,11 +1,13 @@
 package com.dev.cinema.validator;
 
 import com.dev.cinema.lib.PasswordValidation;
+import com.dev.cinema.model.dto.UserRegistrationDto;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import org.springframework.beans.BeanWrapperImpl;
 
-public class PasswordValidator implements ConstraintValidator<PasswordValidation, Object> {
+public class PasswordValidator implements ConstraintValidator<PasswordValidation,
+        UserRegistrationDto> {
     private String password;
     private String repeatPassword;
 
@@ -16,15 +18,11 @@ public class PasswordValidator implements ConstraintValidator<PasswordValidation
     }
 
     @Override
-    public boolean isValid(Object value, ConstraintValidatorContext context) {
-        Object passwordValue = new BeanWrapperImpl(value)
+    public boolean isValid(UserRegistrationDto user, ConstraintValidatorContext context) {
+        Object passwordValue = new BeanWrapperImpl(user)
                 .getPropertyValue(password);
-        Object repeatPasswordValue = new BeanWrapperImpl(value)
+        Object repeatPasswordValue = new BeanWrapperImpl(user)
                 .getPropertyValue(repeatPassword);
-        if (passwordValue != null) {
-            return passwordValue.equals(repeatPasswordValue);
-        } else {
-            return repeatPasswordValue == null;
-        }
+        return passwordValue.equals(repeatPasswordValue);
     }
 }
