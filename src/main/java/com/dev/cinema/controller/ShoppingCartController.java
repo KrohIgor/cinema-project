@@ -42,7 +42,7 @@ public class ShoppingCartController {
                 .getMovieSessionId()), user);
     }
 
-    @GetMapping(value = "/byuser")
+    @GetMapping(value = "/by-user")
     private ShoppingCartResponseDto getByUser(Authentication authentication) {
         User user = userService.findByEmail(authentication.getName());
         return shoppingCartMapper.getShoppingCartResponseDto(shoppingCartService
