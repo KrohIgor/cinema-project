@@ -1,10 +1,16 @@
 package com.dev.cinema.model.dto;
 
 import java.time.LocalDateTime;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotNull;
 
 public class MovieSessionRequestDto {
+    @NotNull
     private Long movieId;
+    @NotNull
     private Long cinemaHallId;
+    @NotNull
+    @FutureOrPresent
     private LocalDateTime showTime;
 
     public Long getMovieId() {
