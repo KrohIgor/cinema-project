@@ -7,9 +7,12 @@ import com.dev.cinema.service.UserService;
 import java.util.Set;
 import javax.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
+@RequestMapping("/inject")
 public class InjectDataController {
     private RoleService roleService;
     private UserService userService;
@@ -23,11 +26,17 @@ public class InjectDataController {
     @PostConstruct
     public void injectRolesToDb() {
         roleService.add(Role.of("USER"));
+        roleService.add(Role.of("ADMIN"));
+    }
+
+    @PostMapping
+    public String injectAdminToDB() {
         User admin = new User();
         admin.setEmail("admin@ukr.net");
         admin.setPassword("4321");
-        Role adminRole = roleService.add(Role.of("ADMIN"));
+        Role adminRole = roleService.getRoleByName("ADMIN");
         admin.setRoles(Set.of(adminRole));
         userService.add(admin);
+        return "Admin successfully added to DB email - admin@ukr.net, password - 4321";
     }
 }
