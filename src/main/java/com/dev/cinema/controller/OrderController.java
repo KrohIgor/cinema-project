@@ -11,6 +11,7 @@ import com.dev.cinema.service.UserService;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,7 @@ public class OrderController {
     private UserService userService;
     private OrderMapper orderMapper;
 
+    @Autowired
     public OrderController(OrderService orderService, ShoppingCartService shoppingCartService,
                            UserService userService, OrderMapper orderMapper) {
         this.orderService = orderService;

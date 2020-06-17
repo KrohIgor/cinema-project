@@ -2,31 +2,35 @@ package com.dev.cinema.security;
 
 import com.dev.cinema.exception.AuthenticationException;
 import com.dev.cinema.model.User;
+import com.dev.cinema.service.RoleService;
 import com.dev.cinema.service.ShoppingCartService;
 import com.dev.cinema.service.UserService;
-import com.dev.cinema.util.HashUtil;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {
     private UserService userService;
     private ShoppingCartService shoppingCartService;
-    private HashUtil hashUtil;
+    private PasswordEncoder passwordEncoder;
+    private RoleService roleService;
 
     @Autowired
     public AuthenticationServiceImpl(UserService userService,
-                                     ShoppingCartService shoppingCartService, HashUtil hashUtil) {
+                                     ShoppingCartService shoppingCartService,
+                                     PasswordEncoder passwordEncoder, RoleService roleService) {
         this.userService = userService;
         this.shoppingCartService = shoppingCartService;
-        this.hashUtil = hashUtil;
+        this.passwordEncoder = passwordEncoder;
+        this.roleService = roleService;
     }
 
     @Override
     public User login(String email, String password) throws AuthenticationException {
         User userFromDB = userService.findByEmail(email);
-        if (userFromDB != null && hashUtil.hashPassword(password, userFromDB.getSalt())
-                .equals(userFromDB.getPassword())) {
+        if (userFromDB != null && passwordEncoder.matches(password, userFromDB.getPassword())) {
             return userFromDB;
         }
         throw new AuthenticationException("Incorrect email or password");
@@ -35,11 +39,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public User register(String email, String password) {
         User user = new User();
-        byte[] salt = hashUtil.getSalt();
-        user.setSalt(salt);
-        String hashPassword = hashUtil.hashPassword(password, salt);
         user.setEmail(email);
-        user.setPassword(hashPassword);
+        user.setPassword(password);
+        user.setRoles(Set.of(roleService.getRoleByName("USER")));
         User userFromDB = userService.add(user);
         shoppingCartService.registerNewShoppingCart(userFromDB);
         return userFromDB;
