@@ -19,7 +19,7 @@ import org.springframework.stereotype.Repository;
 public class CinemaHallDaoImpl implements CinemaHallDao {
     private static final Logger LOGGER = Logger.getLogger(CinemaHallDaoImpl.class);
 
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     @Autowired
     public CinemaHallDaoImpl(SessionFactory sessionFactory) {

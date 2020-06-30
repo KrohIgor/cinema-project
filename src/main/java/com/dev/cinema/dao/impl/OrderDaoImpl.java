@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
 public class OrderDaoImpl implements OrderDao {
     private static final Logger LOGGER = Logger.getLogger(OrderDaoImpl.class);
 
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     @Autowired
     public OrderDaoImpl(SessionFactory sessionFactory) {
