@@ -1,4 +1,4 @@
-"# cinema-project" 
+# cinema-project 
 
 ![Header Image](src/main/resources/cinema.jpg)
 

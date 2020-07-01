@@ -18,8 +18,4 @@ public @interface PasswordValidation {
     Class<?>[] groups() default {};
 
     Class<? extends Payload>[] payload() default {};
-
-    String password();
-
-    String repeatPassword();
 }

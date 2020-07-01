@@ -68,7 +68,7 @@ public class OrderDaoImpl implements OrderDao {
                     .distinct()
                     .collect(Collectors.toList());
         } catch (Exception e) {
-            throw new DataProcessingException("Error retrieving Shopping cart", e);
+            throw new DataProcessingException("Error retrieving Order", e);
         }
     }
 }

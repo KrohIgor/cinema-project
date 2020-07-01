@@ -73,7 +73,7 @@ public class UserDaoImpl implements UserDao {
             criteriaQuery.where(predicate);
             return session.createQuery(criteriaQuery).uniqueResultOptional();
         } catch (Exception e) {
-            throw new DataProcessingException("Error retrieving user", e);
+            throw new DataProcessingException("Error retrieving User", e);
         }
     }
 }

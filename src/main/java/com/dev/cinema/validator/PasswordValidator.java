@@ -10,10 +10,6 @@ public class PasswordValidator implements ConstraintValidator<PasswordValidation
         UserRegistrationDto> {
 
     @Override
-    public void initialize(PasswordValidation constraintAnnotation) {
-    }
-
-    @Override
     public boolean isValid(UserRegistrationDto user, ConstraintValidatorContext context) {
         return Objects.equals(user.getPassword(), user.getRepeatPassword());
     }
