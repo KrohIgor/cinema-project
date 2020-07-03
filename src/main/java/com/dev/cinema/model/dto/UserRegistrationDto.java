@@ -4,8 +4,7 @@ import com.dev.cinema.lib.EmailValidation;
 import com.dev.cinema.lib.PasswordValidation;
 import javax.validation.constraints.NotNull;
 
-@PasswordValidation(password = "password",
-        repeatPassword = "repeatPassword")
+@PasswordValidation
 public class UserRegistrationDto {
     @NotNull
     @EmailValidation

@@ -21,9 +21,9 @@ import org.springframework.stereotype.Repository;
 public class MovieSessionDaoImpl implements MovieSessionDao {
     private static final Logger LOGGER = Logger.getLogger(MovieSessionDaoImpl.class);
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
+    @Autowired
     public MovieSessionDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }

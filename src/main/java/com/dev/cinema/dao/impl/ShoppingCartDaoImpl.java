@@ -20,7 +20,7 @@ import org.springframework.stereotype.Repository;
 public class ShoppingCartDaoImpl implements ShoppingCartDao {
     private static final Logger LOGGER = Logger.getLogger(ShoppingCartDaoImpl.class);
 
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     @Autowired
     public ShoppingCartDaoImpl(SessionFactory sessionFactory) {

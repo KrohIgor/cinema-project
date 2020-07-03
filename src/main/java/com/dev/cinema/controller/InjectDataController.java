@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/inject")
 public class InjectDataController {
-    private RoleService roleService;
-    private UserService userService;
+    private final RoleService roleService;
+    private final UserService userService;
 
     @Autowired
     public InjectDataController(RoleService roleService, UserService userService) {

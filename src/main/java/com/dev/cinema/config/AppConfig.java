@@ -19,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
         "com.dev.cinema.dao",
         "com.dev.cinema.security",
         "com.dev.cinema.service",
-        "com.dev.cinema.util",
         "com.dev.cinema.mapper"
 })
 public class AppConfig {

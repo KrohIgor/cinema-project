@@ -14,7 +14,7 @@ import org.springframework.stereotype.Repository;
 public class TicketDaoImpl implements TicketDao {
     private static final Logger LOGGER = Logger.getLogger(TicketDaoImpl.class);
 
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     @Autowired
     public TicketDaoImpl(SessionFactory sessionFactory) {

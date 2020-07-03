@@ -22,7 +22,7 @@ import org.springframework.stereotype.Repository;
 public class OrderDaoImpl implements OrderDao {
     private static final Logger LOGGER = Logger.getLogger(OrderDaoImpl.class);
 
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     @Autowired
     public OrderDaoImpl(SessionFactory sessionFactory) {
@@ -68,7 +68,7 @@ public class OrderDaoImpl implements OrderDao {
                     .distinct()
                     .collect(Collectors.toList());
         } catch (Exception e) {
-            throw new DataProcessingException("Error retrieving Shopping cart", e);
+            throw new DataProcessingException("Error retrieving Order", e);
         }
     }
 }

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CinemaHallServiceImpl implements CinemaHallService {
-    private CinemaHallDao cinemaHallDao;
+    private final CinemaHallDao cinemaHallDao;
 
     @Autowired
     public CinemaHallServiceImpl(CinemaHallDao cinemaHallDao) {
